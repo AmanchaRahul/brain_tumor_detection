@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .result-section {
+            margin: 30px 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        .prediction {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2196F3;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .confidence {
+            font-size: 18px;
+            text-align: center;
+            color: #666;
+        }
+        .image-preview {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .image-preview img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .probabilities {
+            margin-top: 20px;
+        }
+        .prob-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            margin: 5px 0;
+            background-color: white;
+            border-radius: 3px;
+        }
+        .back-button {
+            display: block;
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 30px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .back-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Prediction Results</h1>
+        
+        {% if has_prediction %}
+            <div class="image-preview">
+                <img src="{{ image_url }}" alt="Uploaded Brain Scan">
+            </div>
+            
+            <div class="result-section">
+                <div class="prediction">
+                    Prediction: {{ predicted_class|upper }}
+                </div>
+                <div class="confidence">
+                    Confidence: {{ confidence|floatformat:2 }}%
+                </div>
+            </div>
+            
+            <div class="result-section">
+                <h3>All Class Probabilities:</h3>
+                <div class="probabilities">
+                    {% for class_name, prob in all_predictions.items %}
+                        <div class="prob-item">
+                            <span>{{ class_name|title }}</span>
+                            <span>{{ prob|floatformat:2 }}%</span>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+        
+        <a href="{% url 'brain_tumor_app:predict_tumor' %}" class="back-button">Analyze Another Image</a>
+    </div>
+</body>
+</html>
