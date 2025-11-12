@@ -26,12 +26,21 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-#6xjz#n)o9)s_-s^h$3^&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = os.environ.get('https://brain-tumor-detection-pmz6.onrender.com/', 'localhost,127.0.0.1').split(',')
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    'brain-tumor-detection-pmz6.onrender.com',
+]
+
+# Add custom domains from environment variable if provided
+custom_hosts = os.environ.get('ALLOWED_HOSTS', '')
+if custom_hosts:
+    ALLOWED_HOSTS.extend(custom_hosts.split(','))
 
 # Add render.com domain if in production
 if not DEBUG:
     RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
-    if RENDER_EXTERNAL_HOSTNAME:
+    if RENDER_EXTERNAL_HOSTNAME and RENDER_EXTERNAL_HOSTNAME not in ALLOWED_HOSTS:
         ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 
