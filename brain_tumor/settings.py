@@ -121,7 +121,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # ML Model path
-ML_MODEL_PATH = os.path.join(BASE_DIR, 'ml_models', 'brain_tumor_cnn_model.h5')
+ML_MODEL_PATH = os.path.join(BASE_DIR, 'ml_models', 'brain_tumor_cnn_model.tflite')
 
 STATIC_URL = '/static/'
 
