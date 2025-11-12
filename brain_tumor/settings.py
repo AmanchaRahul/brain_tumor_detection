@@ -26,7 +26,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-#6xjz#n)o9)s_-s^h$3^&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
+ALLOWED_HOSTS = os.environ.get('https://brain-tumor-detection-pmz6.onrender.com/', 'localhost,127.0.0.1').split(',')
 
 # Add render.com domain if in production
 if not DEBUG:
